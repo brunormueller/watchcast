@@ -1,6 +1,7 @@
 // main.ts
 import './telemetry';
 import { buildApp } from './app';
+import { startKafkaConsumer } from './shared/kafka/consumer';
 
 async function start() {
     const app = await buildApp();
@@ -8,6 +9,8 @@ async function start() {
         if (err) throw err;
         console.log('🚀 Server listening on http://localhost:3000');
     });
+
+    await startKafkaConsumer();
 }
 
 start();

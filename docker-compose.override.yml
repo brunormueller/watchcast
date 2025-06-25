@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  backend:
+    build: .
+    container_name: backend
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/watchdb
+      - JWT_SECRET=supersecretkey
+      - KAFKA_BROKER=localhost:9092
+    depends_on:
+      - postgres
+      - kafka
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run dev # ou "node dist/main.js" se for produção
